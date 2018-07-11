@@ -6,7 +6,7 @@ go:
 install: true
 
 before_script:
-  - go install ./vendor/github.com/golangci/golangci-lint/cmd/golangci-lint
+  - go get github.com/golangci/golangci-lint/cmd/golangci-lint
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 script:
   - dep ensure
