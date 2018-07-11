@@ -9,6 +9,13 @@
 multierrgroup combines [`sync.WaitGroup`](https://godoc.org/sync#WaitGroup) and hashicorp's [`multierror.Error`](https://godoc.org/github.com/hashicorp/go-multierror#Error) to create a wait group that collects all reported errors.
 
 
+## Installation and Docs
+
+Install using `go get github.com/jribe/multierrgroup`.
+
+Full documentation is available at
+http://godoc.org/github.com/jribe/multierrgroup
+
 ## Usage
 
 multierrgroup is used just like [`sync.WaitGroup`](https://godoc.org/sync#WaitGroup), except the `Done` method takes `error` as a parameter and the `Wait` method returns a [`multierror.Error`](https://godoc.org/github.com/hashicorp/go-multierror#Error) or nil.
