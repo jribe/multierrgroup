@@ -1,6 +1,6 @@
 # multierrgroup
 
-[![Build Status](http://img.shields.io/travis/hashicorp/go-multierror.svg?style=flat-square)][travis]
+[![Build Status](http://img.shields.io/travis/jribe/multierrgroup.svg?style=flat-square)][travis]
 [![Go Documentation](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)][godocs]
 
 [travis]: https://travis-ci.org/jribe/multierrgroup
