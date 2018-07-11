@@ -5,23 +5,23 @@ import (
 	"sync"
 )
 
-// MultiErrGroup waits for a collection of goroutines to finish.
+// WaitGroup waits for a collection of goroutines to finish.
 // The main goroutine calls Add to set the number of
 // goroutines to wait for. Then each of the goroutines
 // runs and calls Done when finished. At the same time,
 // Wait can be used to block until all goroutines have finished.
 //
-// A MultiErrGroup must not be copied after first use.
+// A WaitGroup must not be copied after first use.
 //
-// MultiErrGroup is distinct from sync.WaitGroup because it collects
+// WaitGroup is distinct from sync.WaitGroup because it collects
 // errors returned by the goroutines in a multierror.Error.
-type MultiErrGroup struct {
+type WaitGroup struct {
 	wg  sync.WaitGroup
 	err *multierror.Error
 	mu  sync.Mutex
 }
 
-// Add adds delta, which may be negative, to the MultiErrGroup counter.
+// Add adds delta, which may be negative, to the WaitGroup counter.
 // If the counter becomes zero, all goroutines blocked on Wait are released.
 // If the counter goes negative, Add panics.
 //
@@ -31,14 +31,14 @@ type MultiErrGroup struct {
 // at any time.
 // Typically this means the calls to Add should execute before the statement
 // creating the goroutine or other event to be waited for.
-// A MultiErrGroup should not be reused to wait for several independent sets of events
+// A WaitGroup should not be reused to wait for several independent sets of events
 // because the collected errors can not be reset
-func (g *MultiErrGroup) Add(delta int) {
+func (g *WaitGroup) Add(delta int) {
 	g.wg.Add(delta)
 }
 
-// Done decrements the MultiErrGroup counter by one and adds err to the collected errors.
-func (g *MultiErrGroup) Done(err error) {
+// Done decrements the WaitGroup counter by one and adds err to the collected errors.
+func (g *WaitGroup) Done(err error) {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -47,10 +47,10 @@ func (g *MultiErrGroup) Done(err error) {
 	}
 }
 
-// Wait blocks until the MultiErrGroup counter is zero and returns a *multierror.Error
+// Wait blocks until the WaitGroup counter is zero and returns a *multierror.Error
 // wrapping all of the errors returned by the goroutines. If all of the goroutines
 // returned nil errors, Wait returns nil.
-func (g *MultiErrGroup) Wait() *multierror.Error {
+func (g *WaitGroup) Wait() *multierror.Error {
 	g.wg.Wait()
 	return g.err
 }
