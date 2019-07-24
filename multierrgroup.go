@@ -1,8 +1,9 @@
 package multierrgroup
 
 import (
-	"github.com/hashicorp/go-multierror"
 	"sync"
+
+	"github.com/hashicorp/go-multierror"
 )
 
 // WaitGroup waits for a collection of goroutines to finish.
@@ -39,6 +40,7 @@ func (g *WaitGroup) Add(delta int) {
 
 // Done decrements the WaitGroup counter by one and adds err to the collected errors.
 func (g *WaitGroup) Done(err error) {
+	defer g.wg.Add(-1)
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
